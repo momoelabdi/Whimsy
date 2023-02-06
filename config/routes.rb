@@ -3,9 +3,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'listings/index'
       get 'listings/create'
-      get 'listings/show'
-      get 'listings/destroy'
+      get '/show/:id', to: 'listings#show'
+      delete '/destroy/:id', to: 'listings#destroy'
     end
   end
   root 'homepage#index'
+  get '/*path' => 'homepage#index'
 end
