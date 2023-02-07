@@ -5,11 +5,11 @@ class Api::V1::ListingsController < ApplicationController
   end
 
   def create
-    @listing = Listing.new(listing_params)
-    if @listing.save
-      render :show, status: :created
+    @listing = Listing.create!(listing_params)
+    if @listing
+      render json: @listing
     else
-      render json: @listing.errors, status: :unprocessable_entity
+      render json: @listing.errors
     end
   end
 
@@ -21,7 +21,7 @@ class Api::V1::ListingsController < ApplicationController
   def destroy
     @listing = Listing.find(params[:id])
     @listing.destroy
-    # render json: @listing
+    render json: @listing
   end
 
   def listing_params
