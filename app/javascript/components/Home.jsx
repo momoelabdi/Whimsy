@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Listing from "./Listings";
+import Listings from "./Listings";
 
 const Home = () => {
   return (
