@@ -70,7 +70,7 @@ const Listing = () => {
               Delete Listing
             </button>
             <hr />
-            <Link to="/listings" className="btn btn-link">
+            <Link to="/" className="btn btn-link">
               Back to listings
             </Link>
           </div>
