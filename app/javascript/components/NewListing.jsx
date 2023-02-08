@@ -1,13 +1,13 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const NewListing = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+
 
   const stripHtmlEntities = (str) => {
     return String(str)
@@ -37,7 +37,7 @@ const NewListing = () => {
       method: "POST",
       headers: {
         "X-CSRF-Token": token,
-        ContentType: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
     })
@@ -90,7 +90,7 @@ const NewListing = () => {
               required
               onChange={(event) => onChange(event, setDescription)}
             />
-            <button type="submit" className=" btn btn-success ">
+            <button type="submit" className="btn btn-success ">
               Create Listing
             </button>
             <Link to="/" className="btn btn-link mt-3">

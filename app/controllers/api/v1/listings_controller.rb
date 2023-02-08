@@ -25,6 +25,6 @@ class Api::V1::ListingsController < ApplicationController
   end
 
   def listing_params
-    params.permit(:name, :description, :lication, :image)
+    params.permit(:name, :description, :location, :image)
   end
 end
