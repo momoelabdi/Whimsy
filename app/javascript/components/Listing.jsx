@@ -17,7 +17,7 @@ const Listing = () => {
         throw new Error("Network response was not ok.");
       })
       .then((response) => setListing(response))
-      .catch(() => navigate("/listings"));
+      .catch(() => navigate("/"));
   }, [params.id]);
   const addHtmlEntities = (str) => {
     return String(str).replace(/&lt;/g, "<").replace(/&gt;/g, ">");
