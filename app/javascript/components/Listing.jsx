@@ -23,6 +23,26 @@ const Listing = () => {
     return String(str).replace(/&lt;/g, "<").replace(/&gt;/g, ">");
   };
 
+  const deleteListing = () => {
+    const url = `/api/v1/destroy/${params.id}`;
+    const token = document.querySelector('meta[name="csrf-token"]').content;
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-Token": token,
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
+      .then(() => navigate("/listings"))
+      .catch((error) => console.log(error.message));
+  };
+
   const descriptionList = () => {
     let descriptionList = "No description available";
     if (listing.description.length > 0) {
@@ -66,7 +86,7 @@ const Listing = () => {
                 __html: `${listingLocatin}`,
               }}
             />
-            <button type="button" className="btn btn-danger">
+            <button type="button" className="btn btn-danger" onClick={deleteListing}>
               Delete Listing
             </button>
             <hr />
