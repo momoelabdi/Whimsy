@@ -90,7 +90,7 @@ const NewListing = () => {
               required
               onChange={(event) => onChange(event, setDescription)}
             />
-            <button type="submit" className="btn btn-success ">
+            <button type="submit" className="btn custom-button">
               Create Listing
             </button>
             <Link to="/" className="btn btn-link mt-3">
