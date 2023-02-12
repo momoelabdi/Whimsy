@@ -4,6 +4,8 @@ import Home from "../components/Home";
 import Listings from "../components/Listings";
 import Listing from "../components/Listing";
 import NewListing from "../components/NewListing";
+import SignUp from "../components/SignUp";
+
 
 export default (
   <Router>
@@ -12,6 +14,7 @@ export default (
       <Route path="/listings" element={<Listings />} />
       <Route path="/listing/:id" element={<Listing />} />
       <Route path="/listing" element={<NewListing />} />
+      <Route path="/signUp" element={<SignUp />} />
     </Routes>
   </Router>
 );
