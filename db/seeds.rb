@@ -9,7 +9,8 @@
 # 9.times do |i|
 #   Listing.create(
 #     name: "Listing #{i + 1}",
-#     description: '227g tub clotted cream, 25g butter, 1 tsp cornflour,100g parmesan, grated nutmeg, 250g fresh fettuccine or tagliatelle, snipped chives or chopped parsley to serve (optional)',
-#     location: 'In a medium saucepan, stir the clotted cream, butter, and cornflour over a low-ish heat and bring to a low simmer. Turn off the heat and keep warm.'
+#     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tempor vitae sapien ac lobortis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin lorem leo, laoreet vitae commodo non, sollicitudin vel est. Sed sit amet lacinia urna. In sodales est vel eros bibendum consectetur. Etiam quis nulla eu magna condimentum volutpat ut ac felis. Nunc consequat felis id nulla tristique suscipit. Ut ut euismod diam. Curabitur facilisis justo eu nisi hendrerit, vel tincidunt sapien blandit. Vestibulum tortor magna, dapibus eu bibendum ac, venenatis vitae libero. Donec dapibus auctor nibh, quis interdum lorem bibendum a.',
+#     location: 'Donec maximus tempus diam eget fermentum. Phasellus ultricies tristique odio nec consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean sodales metus at diam efficitur, quis fermentum lectus tempor.',
+#     image: 'https://upload.wikimedia.org/wikipedia/commons/7/71/Photo_of_image_saab.png'
 #   )
 # end

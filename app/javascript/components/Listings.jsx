@@ -20,7 +20,8 @@ const Listings = () => {
   }, []);
 
   const allListings = listings.map((listing, index) =>  (
-    <div key={index} className="card" style={{width: '18rem'}}>
+    <div key={index} className="col-md-6 col-lg-4">
+      <div className="card mb-4">
       <img src={listing.image} className="card-img-top" alt="..." />
       <div className="card-body">
         <h5 className="card-title">{listing.description}</h5>
@@ -29,6 +30,7 @@ const Listings = () => {
           View Listing
         </Link>
       </div>{" "}
+      </div>
     </div>
   ));
   const noListing = (
