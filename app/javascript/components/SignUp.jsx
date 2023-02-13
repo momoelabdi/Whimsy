@@ -13,17 +13,18 @@ const SignUp = () => {
     event.preventDefault();
 
     try {
-    //   const token = document.querySelector('meta[name="csrf-token"]').content;
-      const response = await fetch('/api/v1/users/register', {
+      const token = document.querySelector('meta[name="csrf-token"]').content;
+      const response = await fetch('/api/v1/sign_up', {
         method: "POST",
         headers: {
-        // "X-CSRF-Token": token,
+        "X-CSRF-Token": token,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
+         email,
           password,
           password_confirmation,
+        
         }),
       });
       if (!response.ok) {
@@ -42,9 +43,9 @@ const SignUp = () => {
           <label className="form-label">Email address</label>
           <input
             type="email"
-            name="user[email]"
+            name="email"
             className="form-control"
-            id="exampleInputEmail1"
+        
             aria-describedby="emailHelp"
             onChange={(event) => onChange(event, setEmail)}
           />
@@ -53,9 +54,8 @@ const SignUp = () => {
           <label className="form-label">Password</label>
           <input
             type="password"
-            name="user[password]"
+            name="password"
             className="form-control"
-            id="exampleInputPassword1"
             onChange={(event) => onChange(event, setPassword)}
           />
         </div>
@@ -63,9 +63,8 @@ const SignUp = () => {
         <label className="form-label">Confirm Password</label>
           <input
             type="password"
-            name="user[password_confirmation]"
+            name="password_confirmation"
             className="form-control"
-            id="exampleInputPassword1"
             onChange={(event) => onChange(event, setPasswordConfirmation)}
           />
         </div>
@@ -78,3 +77,4 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
