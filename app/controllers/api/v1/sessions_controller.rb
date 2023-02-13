@@ -1,26 +1,18 @@
-class Api::V1::SessionsController < ApplicationController
-  skip_before_action :verify_authenticity_token
-
-  # def show
-  #   if current_user
-  #     render json: {success : true}
-  #   else
-  #     render json: { errors: ['Not logged in'] }, status: :unauthorized
-  #   end
-  # end
+class Api::V1::SessionsController < Devise::SessionsController
+  skip_before_action :verify_signed_out_user, only: :destroy
 
   def create
     user = User.find_by(email: params[:email])
     if user&.valid_password?(params[:password])
       sign_in(user)
-      render json: {success : true}
+      render json: { success: true }
     else
-      render json: { errors: ['Invalid username/password'] }, status: :unauthorized
+      render json: { success: false }
     end
   end
 
   def destroy
-    sign_out
-    render json: {success : true}
+    sign_out(current_user)
+    render json: { success: true }
   end
 end
