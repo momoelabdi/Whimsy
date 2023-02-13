@@ -2,8 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
   namespace :api do
     namespace :v1 do
-      get 'sessions/create'
-      get 'sessions/destroy'
+      get 'users/create'
+      post 'users/register', to: 'users#register'
+      post 'sign_in', to: 'sessions#create'
+      delete 'sign_out', to: 'sessions#destroy'
       get 'listings/index'
       post 'listings/create'
       get '/show/:id', to: 'listings#show'

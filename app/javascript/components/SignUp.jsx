@@ -2,27 +2,28 @@ import React from "react";
 import { useState } from "react";
 
 const SignUp = () => {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [password_confirmation, setPasswordConfirmation] = useState("");
 
+  const onChange = (event, setFunction) => {
+    setFunction(event.target.value);
+    };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const token = document.querySelector('meta[name="csrf-token"]').content;
-      const respone = await fetch("api/v1/sessions/create", {
+    //   const token = document.querySelector('meta[name="csrf-token"]').content;
+      const response = await fetch('/api/v1/users/register', {
         method: "POST",
         headers: {
-          "X-CSRF-Token": token,
+        // "X-CSRF-Token": token,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name,
           email,
           password,
-          passwordConfirmation,
+          password_confirmation,
         }),
       });
       if (!response.ok) {
@@ -38,45 +39,34 @@ const SignUp = () => {
     <div className="container mt-5">
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className="form-label">Name</label>
-          <input
-            type="text"
-            name="name"
-            className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            onChange={(event) => setName(event.target.value)}
-          />
-        </div>
-        <div className="mb-3">
           <label className="form-label">Email address</label>
           <input
             type="email"
-            name="email"
+            name="user[email]"
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(event) => onChange(event, setEmail)}
           />
         </div>
         <div className="mb-3">
           <label className="form-label">Password</label>
           <input
             type="password"
-            name="password"
+            name="user[password]"
             className="form-control"
             id="exampleInputPassword1"
-            onChange={(event) => setPassword(event.target.value)}
+            onChange={(event) => onChange(event, setPassword)}
           />
         </div>
         <div className="mb-3">
         <label className="form-label">Confirm Password</label>
           <input
             type="password"
-            name="passwordConfirmation"
+            name="user[password_confirmation]"
             className="form-control"
             id="exampleInputPassword1"
-            onChange={(event) => setPasswordConfirmation(event.target.value)}
+            onChange={(event) => onChange(event, setPasswordConfirmation)}
           />
         </div>
         <button type="submit" className="btn btn-primary">
