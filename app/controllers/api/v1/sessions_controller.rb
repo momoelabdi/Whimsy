@@ -10,6 +10,14 @@ class Api::V1::SessionsController < Devise::SessionsController
     end
   end
 
+  def check
+    if current_user
+      render json: {user: current_user, isLoggedIn: true}
+    else
+      render json: {isLoggedIn: false}
+    end
+  end
+
   def destroy
     sign_out(current_user)
     render json: { message: 'Logged out' }
