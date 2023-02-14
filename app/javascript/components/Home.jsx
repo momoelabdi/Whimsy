@@ -17,6 +17,8 @@ export default () => (
         >
           View Listings
         </Link>
+        <Link to="/login" className="btn btn-dark" role="button"> Login </Link>
+        <Link to="/signUp" className="btn btn-dark" role="button"> Sign Up </Link>
       </div>
     </div>
   </div>

@@ -20,6 +20,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
   end
 
   def destroy
+    
   end
 
   private
