@@ -1,20 +1,21 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirmation] = useState("");
-
+  const navigate = useNavigate();
   const onChange = (event, setFunction) => {
     setFunction(event.target.value);
-    };
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const token = document.querySelector('meta[name="csrf-token"]').content;
-      const response = await fetch('/api/v1/sign_up', {
+      const response = await fetch("/api/v1/users", {
         method: "POST",
         headers: {
         "X-CSRF-Token": token,
@@ -31,6 +32,7 @@ const SignUp = () => {
         throw new Error("Sign up failed");
       }
       console.log("sign up successful");
+      navigate("/listings");
     } catch (error) {
       console.log(error.message);
     }
@@ -45,7 +47,6 @@ const SignUp = () => {
             type="email"
             name="email"
             className="form-control"
-        
             aria-describedby="emailHelp"
             onChange={(event) => onChange(event, setEmail)}
           />
@@ -60,7 +61,7 @@ const SignUp = () => {
           />
         </div>
         <div className="mb-3">
-        <label className="form-label">Confirm Password</label>
+          <label className="form-label">Confirm Password</label>
           <input
             type="password"
             name="password_confirmation"
@@ -77,4 +78,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
