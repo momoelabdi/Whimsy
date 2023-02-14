@@ -14,7 +14,7 @@ const Login = () => {
     event.preventDefault();
     try {
       const token = document.querySelector('meta[name="csrf-token"]').content;
-      const response = await fetch("/api/v1/users/sign_in", {
+      const response = await fetch("/api/v1/auth/sign_in", {
         method: "POST",
         headers: {
           "X-CSRF-Token": token,
@@ -35,64 +35,35 @@ const Login = () => {
     }
   };
 
-//   const handleLogout = async (event) => {
-//     event.preventDefault();
-//     try {
-//       const token = document.querySelector('meta[name="csrf-token"]').content;
-//       const response = await fetch("/api/v1/users/sign_out", {
-//         method: "DELETE",
-//         headers: {
-//           "X-CSRF-Token": token,
-//           "Content-Type": "application/json",
-//         },
-//       });
-//       if (!response.ok) {
-//         throw new Error("Logout failed");
-//       }
-//       console.log("logout successful");
-//       navigate("/");
-//     } catch (error) {
-//       console.log(error.message);
-//     }
-//   };
-
   return (
     <div className="container mt-5">
-      {/* {localStorage.getItem("user") ? (
-        <form onSubmit={handleLogout}>
-          <button type="submit" className="btn btn-primary">
-            Logout
-          </button>
-        </form>
-      ) : ( */}
-        <form onSubmit={handleLogin}>
-          <div className="mb-3">
-            <label className="form-label">Email address</label>
-            <input
-              type="email"
-              name="email"
-              className="form-control"
-              aria-describedby="emailHelp"
-              onChange={(event) => onChange(event, setEmail)}
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Password</label>
-            <input
-              type="password"
-              name="password"
-              className="form-control"
-              onChange={(event) => onChange(event, setPassword)}
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Login
-          </button>
-          <Link to="/signUp" type="button" className="btn btn-primary">
-            Sign Up
-          </Link>
-        </form>
-      {/* )} */}
+      <form onSubmit={handleLogin}>
+        <div className="mb-3">
+          <label className="form-label">Email address</label>
+          <input
+            type="email"
+            name="email"
+            className="form-control"
+            aria-describedby="emailHelp"
+            onChange={(event) => onChange(event, setEmail)}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Password</label>
+          <input
+            type="password"
+            name="password"
+            className="form-control"
+            onChange={(event) => onChange(event, setPassword)}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Login
+        </button>
+        <Link to="/signUp" type="button" className="btn btn-primary">
+          Sign Up
+        </Link>
+      </form>
     </div>
   );
 };
