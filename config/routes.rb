@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'User', at: 'auth'
   namespace :api do
     namespace :v1 do   
-      devise_for :users, controllers: { registrations: 'api/v1/registrations' }
       devise_scope :user do
+        mount_devise_token_auth_for 'User', at: 'api/v1/auth'
         # get 'users/check', to: 'sessions#check'
         post 'sign_up', to: 'registrations#create'
         post 'users/sign_in', to: 'sessions#create'
@@ -14,9 +15,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  
   root 'homepage#index'
   get '/*path' => 'homepage#index'
-  
 end
 

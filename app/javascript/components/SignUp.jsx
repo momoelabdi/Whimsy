@@ -15,7 +15,7 @@ const SignUp = () => {
 
     try {
       const token = document.querySelector('meta[name="csrf-token"]').content;
-      const response = await fetch("/api/v1/users", {
+      const response = await fetch("/api/v1/auth/sign_up", {
         method: "POST",
         headers: {
           "X-CSRF-Token": token,

@@ -4,39 +4,49 @@ import { Link } from "react-router-dom";
 import Listings from "./Listings";
 import Logout from "./Logout";
 
-
-
-
 const Home = () => {
-
-  const checkAuthentication = async () => {
-    const response = await fetch('/api/v1/session/check', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include'
-    });
-    const data = await response.json();
-    console.log( data.isLoggedIn);
-  }
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    checkAuthentication().then(isLoggedIn => {
-      setIsLoggedIn(isLoggedIn);
+  const checkAuthentication = async () => {
+    const response = await fetch("/api/v1/session/check", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
     });
+    const data = await response.json();
+    return data.isLoggedIn;
+  };
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn !== null) {
+      setIsLoggedIn(isLoggedIn === "true");
+    } else {
+      checkAuthentication().then((isLoggedIn) => {
+        setIsLoggedIn(isLoggedIn);
+        localStorage.setItem("isLoggedIn", isLoggedIn);
+      });
+    }
   }, []);
 
+  const handleLogout = async () => {
+    await fetch("/api/v1/session", {
+      method: "DELETE",
+      credentials: "include",
+    });
+    setIsLoggedIn(false);
+    localStorage.removeItem("isLoggedIn");
+  };
 
   let button;
   if (isLoggedIn) {
-    button = <Logout />;
+    button = <Logout onLogout={handleLogout} />;
   } else {
     button = <Link to="/login">Login</Link>;
   }
 
-return (  
+  return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
@@ -84,6 +94,5 @@ return (
       <Listings />
     </div>
   );
-
 };
 export default Home;
