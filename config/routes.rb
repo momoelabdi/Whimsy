@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       devise_scope :user do
         post 'sign_up', to: 'registrations#create'
         post 'users/sign_in', to: 'sessions#create'
-        delete 'sign_out', to: 'sessions#destroy'
+        delete 'users/sign_out', to: 'sessions#destroy'
         get 'listings/index'
         post 'listings/create'
         get '/show/:id', to: 'listings#show'

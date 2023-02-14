@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+
 
 
 const Login = () => {
@@ -35,6 +36,28 @@ const Login = () => {
             console.log(error.message);
         }
     }
+
+    const handleLogout = async (event) => {
+        event.preventDefault();
+        try {
+            const token = document.querySelector('meta[name="csrf-token"]').content;
+            const response = await fetch("/api/v1/users/sign_out", {
+                method: "DELETE",
+                headers: {
+                    "X-CSRF-Token": token,
+                    "Content-Type": "application/json"
+                }
+            });
+            if (!response.ok) {
+                throw new Error("Logout failed");
+            }
+            console.log("logout successful");
+            navigate("/");
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+    
     return (
         <div className="container mt-5">
             <form onSubmit={handleSubmit}>
@@ -61,6 +84,9 @@ const Login = () => {
                     Login
                 </button>
             </form>
+                <Link to="/signUp" type='button' className="btn btn-primary">
+                    Sign Up
+                </Link>
         </div>
     );
 }

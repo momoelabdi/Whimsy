@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -18,14 +18,13 @@ const SignUp = () => {
       const response = await fetch("/api/v1/users", {
         method: "POST",
         headers: {
-        "X-CSRF-Token": token,
+          "X-CSRF-Token": token,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-         email,
+          email,
           password,
           password_confirmation,
-        
         }),
       });
       if (!response.ok) {
@@ -73,6 +72,9 @@ const SignUp = () => {
           Submit
         </button>
       </form>
+      <Link to="/login" type="button" className="btn btn-primary">
+        Sign Up
+      </Link>
     </div>
   );
 };
