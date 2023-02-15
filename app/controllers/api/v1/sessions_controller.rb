@@ -21,13 +21,12 @@ class Api::V1::SessionsController < Devise::SessionsController
   end
 
   def destroy
-    user = User.find_by(email: params[:email])
-    if user&.valid_password?(params[:password])
-      sign_out(user)
-      render status: :ok
-    else
-      render json: { error: 'Invalid email or password' }, status: :unauthorized
-    end
+      if sign_out(resource_name)
+        render json: { success: true }
+      else
+        render json: { error: 'Logout failed' }, status: :unprocessable_entity
+      end
+    
   end
   
 

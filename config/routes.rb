@@ -7,7 +7,7 @@ Rails.application.routes.draw do
         get 'users/check', to: 'sessions#check'
         post '/users', to: 'registrations#create'
         post 'users/sign_in', to: 'sessions#create'
-        delete 'users/destroy', to: 'sessions#destroy'
+        delete 'users/sign_out', to: 'sessions#destroy'
         get 'listings/index'
         post 'listings/create'
         get '/show/:id', to: 'listings#show'
