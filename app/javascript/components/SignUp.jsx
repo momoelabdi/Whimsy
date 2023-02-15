@@ -31,7 +31,7 @@ const SignUp = () => {
         throw new Error("Sign up failed");
       }
       console.log("sign up successful");
-      navigate("/listings");
+      navigate("/");
     } catch (error) {
       console.log(error.message);
     }
@@ -54,7 +54,7 @@ const SignUp = () => {
           <label className="form-label">Password</label>
           <input
             type="password"
-            name="password"
+            name="password" autoComplete="on"
             className="form-control"
             onChange={(event) => onChange(event, setPassword)}
           />
@@ -63,7 +63,7 @@ const SignUp = () => {
           <label className="form-label">Confirm Password</label>
           <input
             type="password"
-            name="password_confirmation"
+            name="password_confirmation" autoComplete="on"
             className="form-control"
             onChange={(event) => onChange(event, setPasswordConfirmation)}
           />

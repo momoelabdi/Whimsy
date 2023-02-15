@@ -8,20 +8,19 @@ const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const checkAuthentication = async () => {
-    const response = await fetch("/api/v1/session/check", {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const response = await fetch("/api/v1/users/check", {
       credentials: "include",
     });
     const data = await response.json();
     return data.isLoggedIn;
   };
 
+  // checkAuthentication();
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (isLoggedIn !== null) {
       setIsLoggedIn(isLoggedIn === "true");
+      console.log(isLoggedIn);
     } else {
       checkAuthentication().then((isLoggedIn) => {
         setIsLoggedIn(isLoggedIn);
@@ -31,17 +30,18 @@ const Home = () => {
   }, []);
 
   const handleLogout = async () => {
-    await fetch("/api/v1/session", {
+    await fetch("/api/v1/users/destroy", {
       method: "DELETE",
       credentials: "include",
     });
     setIsLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
   };
+  handleLogout();
 
   let button;
   if (isLoggedIn) {
-    button = <Logout onLogout={handleLogout} />;
+    button = <Link  onClick={handleLogout} > Logout </Link>;
   } else {
     button = <Link to="/login">Login</Link>;
   }

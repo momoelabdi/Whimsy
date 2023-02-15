@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
-
+ devise_for :users,  defaults: { format: :json }, controllers: {registrations: 'api/v1/registrations',
+    sessions: 'api/v1/sessions'}
   namespace :api do
-    devise_for :users, controllers: {registrations: 'users/registrations',
-      sessions: 'users/sessions'}
     namespace :v1 do   
       devise_scope :user do
-        # get 'users/check', to: 'sessions#check'
+        get 'users/check', to: 'sessions#check'
         post '/users', to: 'registrations#create'
         post 'users/sign_in', to: 'sessions#create'
-        delete 'users/sign_out', to: 'sessions#destroy'
+        delete 'users/destroy', to: 'sessions#destroy'
         get 'listings/index'
         post 'listings/create'
         get '/show/:id', to: 'listings#show'
