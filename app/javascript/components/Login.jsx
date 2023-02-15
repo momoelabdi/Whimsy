@@ -14,7 +14,7 @@ const Login = () => {
     event.preventDefault();
     try {
       const token = document.querySelector('meta[name="csrf-token"]').content;
-      const response = await fetch("/api/v1/auth/sign_in", {
+      const response = await fetch("/api/v1/users/sign_in", {
         method: "POST",
         headers: {
           "X-CSRF-Token": token,
@@ -53,7 +53,7 @@ const Login = () => {
           <input
             type="password"
             name="password"
-            className="form-control"
+            className="form-control" autoComplete="on"
             onChange={(event) => onChange(event, setPassword)}
           />
         </div>
