@@ -1,7 +1,7 @@
 class Api::V1::SessionsController < Devise::SessionsController
-  skip_before_action :verify_signed_out_user
+  # skip_before_action :verify_signed_out_user
   # prepend_before_action :verify_signed_out_user, only: :destroy
-  skip_before_action :verify_authenticity_token
+  # skip_before_action :verify_authenticity_token
   def create
     user = User.find_by(email: params[:email])
     if user&.valid_password?(params[:password])
@@ -13,7 +13,7 @@ class Api::V1::SessionsController < Devise::SessionsController
   end
 
   def check
-    if user_signed_in?
+    if signed_in?
       render json: {isLoggedIn: true}
     else
       render json: {isLoggedIn: false}

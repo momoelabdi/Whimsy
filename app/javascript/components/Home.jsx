@@ -7,26 +7,17 @@ import Logout from "./Logout";
 const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const checkAuthentication = async () => {
+  async function checkUserLoggedIn() {
     const response = await fetch("/api/v1/users/check", {
       credentials: "include",
     });
     const data = await response.json();
-    return data.isLoggedIn;
-  };
 
-  // checkAuthentication();
+    setIsLoggedIn(data.isLoggedIn);
+  }
+
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isLoggedIn !== null) {
-      setIsLoggedIn(isLoggedIn === "true");
-      console.log(isLoggedIn);
-    } else {
-      checkAuthentication().then((isLoggedIn) => {
-        setIsLoggedIn(isLoggedIn);
-        localStorage.setItem("isLoggedIn", isLoggedIn);
-      });
-    }
+    checkUserLoggedIn();
   }, []);
 
   const handleLogout = async () => {
@@ -35,16 +26,7 @@ const Home = () => {
       credentials: "include",
     });
     setIsLoggedIn(false);
-    localStorage.removeItem("isLoggedIn");
   };
-  handleLogout();
-
-  let button;
-  if (isLoggedIn) {
-    button = <Link  onClick={handleLogout} > Logout </Link>;
-  } else {
-    button = <Link to="/login">Login</Link>;
-  }
 
   return (
     <div>
@@ -75,7 +57,29 @@ const Home = () => {
                   Home
                 </a>
               </li>
-              {button}
+              {isLoggedIn ? (
+                <Link
+                  type="button"
+                  className="btn custom-button"
+                  onClick={handleLogout}
+                >
+                  {" "}
+                  Logout{" "}
+                </Link>
+              ) : (
+                <>
+                  <Link type="button" className="btn custom-button" to="/login">
+                    Login
+                  </Link>
+                  <Link
+                    type="button"
+                    className="btn custom-button"
+                    to="/signUp"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </ul>
             <form className="d-flex" role="search">
               <input
