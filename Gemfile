@@ -15,8 +15,7 @@ gem 'bootstrap', '~> 5.2.1'
 gem "devise" 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
-gem 'omniauth', '~> 1.0'
-gem 'devise_token_auth'
+
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
 
