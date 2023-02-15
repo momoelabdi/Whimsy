@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Listings from "./Listings";
 import Logout from "./Logout";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   async function checkUserLoggedIn() {
     const response = await fetch("/api/v1/users/check", {
@@ -20,12 +22,25 @@ const Home = () => {
     checkUserLoggedIn();
   }, []);
 
-  const handleLogout = async () => {
-    await fetch("/api/v1/users/destroy", {
-      method: "DELETE",
-      credentials: "include",
-    });
-    setIsLoggedIn(false);
+  const handleLogout = async (event) => {
+    event.preventDefault();
+    try {
+      const token = document.querySelector('meta[name="csrf-token"]').content;
+      const response = await fetch("/api/v1/users/sign_out", {
+        method: "DELETE",
+        headers: {
+          "X-CSRF-Token": token,
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Logout failed");
+      }
+      console.log("logout successful");
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
