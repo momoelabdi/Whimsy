@@ -7,6 +7,7 @@ const NewListing = () => {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
+  // const [user_id, setUserId] = useState();
 
 
   const stripHtmlEntities = (str) => {
@@ -28,6 +29,7 @@ const NewListing = () => {
 
     const body = {
       name,
+      // user_id,
       location,
       description: stripHtmlEntities(description),
     };
@@ -69,6 +71,14 @@ const NewListing = () => {
                 required
                 onChange={(event) => onChange(event, setName)}
               />
+              {/* <input
+                type="hidden"
+                name="user_id"
+                id="listingName"
+                className="form-control"
+                required
+                onChange={(event) => onChange(event, setUserId)}
+              /> */}
             </div>
             <div className="form-group">
               <label htmlFor="listingLocation">Listing location</label>

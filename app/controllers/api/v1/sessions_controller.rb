@@ -1,38 +1,34 @@
 class Api::V1::SessionsController < Devise::SessionsController
-  # skip_before_action :verify_signed_out_user
-  # prepend_before_action :verify_signed_out_user, only: :destroy
-  # skip_before_action :verify_authenticity_token
+  respond_to :json
+
   def create
-    user = User.find_by(email: params[:email])
-    if user&.valid_password?(params[:password])
-      sign_in(user)
-      render json: user
-    else
-      render json: user.errors, status: :unauthorized
-    end
+    super do |user|
+      if request.format.json?
+        data = {
+          user: user,
+          auth_token: user.authentication_token,
+          email: user.email
+        }
+        render json: data, status: 201 and return
+      end
+    end  
   end
 
   def check
-    if signed_in?
-      render json: {isLoggedIn: true}
+    if current_user
+      render json: {isLoggedIn: true}, status: 201 and return
     else
-      render json: {isLoggedIn: false}
+      render json: {isLoggedIn: false}, status: 201 and return
     end
   end
 
   def destroy
-      if sign_out(resource_name)
-        render json: { success: true }
-      else
-        render json: { error: 'Logout failed' }, status: :unprocessable_entity
-      end
-    
-  end
+    super do |user|
+      if request.format.json?
+        render json: {isLoggedIn: false}, status: 201 and return
   
-
-  private
-
-    def user_params
-      params.permit(:email, :password)
+      end
     end
+  end
+
 end
