@@ -1,6 +1,5 @@
 class Api::V1::SessionsController < Devise::SessionsController
   respond_to :json
-
   def create
     super do |user|
       if request.format.json?
@@ -15,7 +14,7 @@ class Api::V1::SessionsController < Devise::SessionsController
   end
 
   def check
-    if current_user
+    if user_signed_in?
       render json: {isLoggedIn: true}, status: 201 and return
     else
       render json: {isLoggedIn: false}, status: 201 and return
@@ -26,7 +25,6 @@ class Api::V1::SessionsController < Devise::SessionsController
     super do |user|
       if request.format.json?
         render json: {isLoggedIn: false}, status: 201 and return
-  
       end
     end
   end

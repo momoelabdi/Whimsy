@@ -8,14 +8,12 @@ class Api::V1::ListingsController < ApplicationController
 
   def create
     @listing = Listing.new(listing_params)
-    if current_user
-      session[:user_id] = current_user.id
+    
       @listing.user_id = session[:user_id]
-    end
     if @listing.save
       render json: @listing
     else
-      render json: @listing.errors
+      render json: {error: 'Error creating listing'}
     end
   end
   
